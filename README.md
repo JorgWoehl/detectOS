@@ -14,7 +14,7 @@ For many cross-platform applications, it is useful to know the operating system 
 
 For a list of Windows releases, see https://en.wikipedia.org/wiki/Ver_(command).
 
-For list of Mac releases, see https://support.apple.com/en-us/HT201260.
+For a list of Mac releases, see https://support.apple.com/en-us/HT201260.
 
 ## Systems Tested
 
