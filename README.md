@@ -26,7 +26,7 @@ All tested operating systems are 64-bit unless otherwise stated.
 * Windows 7 (6.1.7601) with R2015b, R2016a, R2016b
 * Windows 8.1 Update 1 (6.3.9600) with R2015b, R2016a, R2016b
 * Windows 10 (10.0.10586) with R2015b, R2016a, R2016b
-* Ubuntu 14.04 LTS with R2015b, R2016a, R2016b
+* Ubuntu 14.04 LTS with R2014b, R2015b, R2016a, R2016b
 * Ubuntu 15.10 with R2014b, R2015b, R2016a, R2016b
 * Ubuntu 16.04 LTS with R2015b, R2016a, R2016b
 * CentOS 6.8 (Final) with R2015b, R2016a, R2016b
