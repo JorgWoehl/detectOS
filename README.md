@@ -8,9 +8,9 @@ For many cross-platform applications, it is useful to know the operating system 
 
 ## Usage 
 
-`OS = detectOS` returns the name of the operating system as a lowercase string, such as 'macos', 'windows', 'solaris', 'aix', 'ubuntu', 'centos', and many other Unix/Linux distributions. It is thus much more fine-grained than MATLAB's built-in `ispc` / `ismac` / `isunix` and `computer` functions. If the OS cannot be determined, an error is thrown.
+`OS = detectOS` returns the name of the operating system as a lowercase character vector, such as 'windows', 'macos' (which includes OS X), 'solaris', 'aix', 'ubuntu', 'centos', and many other Unix/Linux distributions. It is thus much more fine-grained than MATLAB's built-in `ispc` / `ismac` / `isunix` and `computer` functions. If the OS cannot be determined, an error is thrown.
 
-`[OS, OSVersion] = detectOS` also returns the OS version number as a numeric row vector. For example, Windows 7 SP1 (Windows version 6.1.7600) is identified as `OS = 'windows'` and `OSVersion = [6, 1, 7601]`. If the OS version cannot be determined, a warning is issued and the empty numeric vector is returned.
+`[OS, OSVersion] = detectOS` also returns the OS version number as a numeric row vector. For example, Windows 7 SP1 (version 6.1.7601) is reported as `OS = 'windows'` and `OSVersion = [6, 1, 7601]`. If the OS version cannot be determined, a warning is issued and the empty numeric array is returned.
 
 For a list of Windows releases, see https://en.wikipedia.org/wiki/Ver_(command).
 
@@ -37,11 +37,11 @@ All tested operating systems are 64-bit unless otherwise stated.
 
 ## Requirements
 
-Requires MATLAB R2013a or later.
+Runs on MATLAB R2013a or later.
 
 ## Motivation
 
-Another great tool returning information about the CPU and operating system is **[CPU Info](https://www.mathworks.com/matlabcentral/fileexchange/33155-cpu-info)**. Unfortunately, it does not differentiate between Unix/Linux distributions, and does not return sensible information about the OS version in these cases, which was the main motivation for writing **detectOS**.
+Another great tool returning information about the CPU and operating system is **[CPU Info](https://www.mathworks.com/matlabcentral/fileexchange/33155-cpu-info)**. Unfortunately, it does not differentiate between Unix/Linux distributions, and does not return sensible information about the OS version in these cases; this was the main motivation for writing **detectOS**.
 
 ## Feedback
 
