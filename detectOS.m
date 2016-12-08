@@ -1,21 +1,20 @@
 function [OS, OSVersion] = detectOS
 %DETECTOS Name and version number of the operating system.
-%   OS = DETECTOS returns the name of the operating system. One of the
-%   following strings is returned: 'macos', 'windows', 'solaris', 'aix', or
-%   the name of another Unix/Linux distro in all lowercase characters
-%   (e.g., 'ubuntu', 'centos'). An error is thrown if the operating system
-%   cannot be determined.
+%   OS = DETECTOS returns the name of the operating system as one of the
+%   following character vectors: 'windows', 'macos' (which includes OS X),
+%   'solaris', 'aix', or another Unix/Linux distro in all lowercase
+%   characters (such as 'ubuntu' or 'centos'). An error is thrown if the
+%   operating system cannot be determined.
 %
-%   [~, OSVersion] = DETECTOS returns the operating system version number
-%   as a numeric row vector. For example, version 6.1.7600 yields
-%   OSVersion(1) = 6, OSVersion(2) = 1, OSVersion(3) = 7600. If the OS
-%   version cannot be determined, a warning is issued and the empty numeric
-%   vector is returned.
+%   [~, OSVERSION] = DETECTOS returns the operating system version number
+%   as a numeric row vector. For example, version 6.1.7601 is reported as
+%   OSVERSION = [6, 1, 7601]. If the OS version cannot be determined, a
+%   warning is issued and the empty numeric array is returned.
 %
 %See also COMPUTER, ISMAC, ISPC, ISUNIX.
 
 % Created 2016-01-05 by Jorg C. Woehl
-% 2016-10-10: Converted to standalone function, comments added (JCW).
+% 2016-10-10 (JCW): Converted to standalone function, comments added.
 
 if ismac
     % Mac
@@ -40,6 +39,7 @@ elseif ispc
         OSVersion = '';
     end
 elseif isunix
+    % Unix/Linux
     % inspired in part by
     %   http://linuxmafia.com/faq/Admin/release-files.html and
     %   http://unix.stackexchange.com/questions/92199/how-can-i-reliably-get-the-operating-systems-name/92218#92218
@@ -71,13 +71,13 @@ elseif isunix
         % first check if /etc/os-release exists and read it
         [status, result] = system('cat /etc/os-release');
         if (status == 0)
-            % add newline to beginning and end of output string (makes parsing easier)
+            % add newline to beginning and end of output character vector (makes parsing easier)
             result = sprintf('\n%s\n', result);
             % determine OS
             OS = regexpi(result, '(?<=\nID=).*?(?=\n)', 'match'); % ID=... (shortest match)
             OS = lower(strtrim(strrep(OS, '"', ''))); % remove quotes, leading/trailing spaces, and make lowercase
             if ~isempty(OS)
-                % convert to string
+                % convert to character vector
                 OS = OS{1};
             end
             % determine OS version
@@ -87,13 +87,13 @@ elseif isunix
             % check for output from lsb_release (more standardized than /etc/lsb-release itself)
             [status, result] = system('lsb_release -a');
             if (status == 0)
-                % add newline to beginning and end of output string (makes parsing easier)
+                % add newline to beginning and end of output character vector (makes parsing easier)
                 result = sprintf('\n%s\n', result);
                 % determine OS
                 OS = regexpi(result, '(?<=\nDistributor ID:\t).*?(?=\n)', 'match'); % Distributor ID: ... (shortest match)
                 OS = lower(strtrim(OS));      % remove leading/trailing spaces, and make lowercase
                 if ~isempty(OS)
-                    % convert to string
+                    % convert to character vector
                     OS = OS{1};
                 end
                 % determine OS version
@@ -156,7 +156,7 @@ else
 end
 
 if iscell(OSVersion)
-    % convert to string
+    % convert to character vector
     OSVersion = OSVersion{1};
 end
 OSVersion = round(str2double(strsplit(OSVersion, '.')));
