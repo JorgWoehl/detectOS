@@ -75,14 +75,14 @@ elseif isunix
             result = sprintf('\n%s\n', result);
             % determine OS
             OS = regexpi(result, '(?<=\nID=).*?(?=\n)', 'match'); % ID=... (shortest match)
-            OS = lower(strtrim(strrep(OS, '"', ''))); % remove quotes, leading/trailing spaces, and make lowercase
+            OS = lower(strtrim(replace(OS, '"', ''))); % remove quotes, leading/trailing spaces, and make lowercase
             if ~isempty(OS)
                 % convert to character vector
                 OS = OS{1};
             end
             % determine OS version
             OSVersion = regexpi(result, '(?<=\nVERSION_ID=)"*\d[.\d]*"*(?=\n)', 'match'); % VERSION_ID=... (longest match)
-            OSVersion = strrep(OSVersion, '"', ''); % remove quotes
+            OSVersion = replace(OSVersion, '"', ''); % remove quotes
         else
             % check for output from lsb_release (more standardized than /etc/lsb-release itself)
             [status, result] = system('lsb_release -a');
@@ -109,7 +109,7 @@ elseif isunix
                 if (status == 0)
                     fileList = [fileList ', ' result];
                 end
-                fileList = strrep(fileList, ',', ' ');
+                fileList = replace(fileList, ',', ' ');
                 % remove spaces and trailing newline
                 fileList = strtrim(fileList);
                 OSList = regexpi(fileList, '(?<=/etc/).*?(?=[-_][rv])', 'match'); % /etc/ ... -release/version or _release/version
