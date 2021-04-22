@@ -14,7 +14,7 @@ function [OS, OSVersion] = detectOS
 %See also COMPUTER, ISMAC, ISPC, ISUNIX.
 
 % Created 2016-01-05 by Jorg C. Woehl
-% 2016-10-10 (JCW): Converted to standalone function, comments added.
+% 2016-10-10 (JCW): Converted to standalone function, comments added (v1.0.1).
 % 2018-04-20 (JCW): Used the recommended “replace” instead of “strrep”.
 % 2021-04-22 (JCW): Version information added (v1.1).
 
