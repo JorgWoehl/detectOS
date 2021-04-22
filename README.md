@@ -20,7 +20,7 @@ For a list of macOS releases, see https://support.apple.com/en-us/HT201260.
 
 ## Requirements
 
-**detectOS** runs on MATLAB R2013a or later. It was tested on the following operating systems (64-bit, unless otherwise stated) and should run on a wide variety of other Unix/Linux distributions without modification:
+**detectOS** requires MATLAB R2016b or later (version 1.0 runs on R2013a or later). It was tested on the following operating systems (64-bit, unless otherwise stated) and should run on a wide variety of other Unix/Linux distributions without modification:
 
 * Windows 10 (10.0.10586)
 * Windows 8.1 Update 1 (6.3.9600)
