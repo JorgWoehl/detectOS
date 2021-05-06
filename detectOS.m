@@ -93,7 +93,7 @@ elseif isunix
                 result = sprintf('\n%s\n', result);
                 % determine OS
                 OS = regexpi(result, '(?<=\nDistributor ID:\t).*?(?=\n)', 'match'); % Distributor ID: ... (shortest match)
-                OS = lower(strtrim(OS));      % remove leading/trailing spaces, and make lowercase
+                OS = lower(strtrim(OS));      % remove leading/trailing spaces, and convert to lowercase
                 if ~isempty(OS)
                     % convert to character vector
                     OS = OS{1};

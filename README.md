@@ -14,13 +14,13 @@ For the development of cross-platform apps in MATLAB, it is useful to know the o
 
 `[OS, OSVersion] = detectOS` also returns the OS version number as a numeric row vector. For example, Windows 7 SP1 (version 6.1.7601) is reported as `OS = 'windows'` and `OSVersion = [6, 1, 7601]`. If the OS version cannot be determined, a warning is issued and the empty numeric array is returned.
 
-For a list of Windows releases, see https://en.wikipedia.org/wiki/Ver_(command).
+For a list of Windows releases, see [https://en.wikipedia.org/wiki/Ver_(command)](https://en.wikipedia.org/wiki/Ver_(command)).
 
-For a list of macOS releases, see https://support.apple.com/en-us/HT201260.
+For a list of macOS releases, see [https://support.apple.com/en-us/HT201260](https://support.apple.com/en-us/HT201260).
 
 ## Requirements
 
-**detectOS** requires MATLAB R2016b or above (version 1.0 runs on R2013a or above). It was tested on the following operating systems (64-bit, unless otherwise stated) and should run on a wide variety of other Unix/Linux distributions without modification:
+**detectOS** is compatible with MATLAB R2016b and later releases (version 1.0 iscompatible with R2013a and later releases). It was tested on the following operating systems (64-bit, unless otherwise stated) and should run on a wide variety of other Unix/Linux distributions without any modification:
 
 * Windows 10 (10.0.10586)
 * Windows 8.1 Update 1 (6.3.9600)
