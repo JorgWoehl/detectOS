@@ -27,6 +27,8 @@ For a list of macOS releases, see [https://support.apple.com/en-us/HT201260](htt
 * Windows 7 (6.1.7601)
 * Windows 7 (6.1.7601), 32-bit
 * Windows XP Pro SP3 (5.1.2600),32-bit
+* macOS Sonoma (14.4.1)
+* macOS Ventura (13.0.1)
 * macOS Big Sur (11.2.3)
 * macOS Catalina (10.15.7)
 * macOS Sierra (10.12.1)
