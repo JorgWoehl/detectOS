@@ -17,10 +17,11 @@ function [OS, OSVersion] = detectOS
 % 2016-10-10 (JCW): Converted to standalone function, comments added (v1.0.1).
 % 2018-04-20 (JCW): Used the recommended “replace” instead of “strrep”.
 % 2021-04-22 (JCW): Version information added (v1.1).
+% 2024-05-13 (JCW): Updated comments.
 
 if ismac
     % Mac
-    % see https://support.apple.com/en-us/HT201260 for version numbers
+    % See https://support.apple.com/en-us/HT201260 for version numbers
     OS = 'macos';
     [status, OSVersion] = system('sw_vers -productVersion');
     OSVersion = strtrim(OSVersion);
@@ -31,7 +32,7 @@ if ismac
     end
 elseif ispc
     % Windows
-    % see https://en.wikipedia.org/wiki/Ver_(command) for version numbers
+    % See https://en.wikipedia.org/wiki/Ver_(command) for version numbers
     OS = 'windows';
     [status, OSVersion] = system('ver');
     OSVersion = regexp(OSVersion, '\d[.\d]*', 'match');
@@ -42,16 +43,16 @@ elseif ispc
     end
 elseif isunix
     % Unix/Linux
-    % inspired in part by
+    % Inspired in part by
     %   http://linuxmafia.com/faq/Admin/release-files.html and
     %   http://unix.stackexchange.com/questions/92199/how-can-i-reliably-get-the-operating-systems-name/92218#92218
-    [status, OS] = system('uname -s');          % results in 'SunOS', 'AIX', or 'Linux'
+    [status, OS] = system('uname -s');                              % Results in 'SunOS', 'AIX', or 'Linux'
     OS = strtrim(OS);
     assert((status == 0), 'detectOS:UnknownUnixDistro',...
         'Unable to determine Unix distribution.');
     if strcmpi(OS, 'SunOS')
-        OS = 'solaris';                      	% newer name
-        [status, OSVersion] = system('uname -v'); % example:
+        OS = 'solaris';                      	                    % Newer name
+        [status, OSVersion] = system('uname -v');
         OSVersion = regexp(OSVersion, '\d[.\d]*', 'match');
         if (~(status == 0) || isempty(OSVersion))
             warning('detectOS:UnknownSolarisVersion',...
@@ -60,7 +61,7 @@ elseif isunix
         end
     elseif strcmpi(OS, 'AIX')
         OS = 'aix';
-        [status, OSVersion] = system('oslevel'); % example: 6.1.0.0
+        [status, OSVersion] = system('oslevel');                    % Example: 6.1.0.0
         OSVersion = regexp(OSVersion, '\d[.\d]*', 'match');
         if (~(status == 0) || isempty(OSVersion))
             warning('detectOS:UnknownAIXVersion',...
@@ -70,53 +71,53 @@ elseif isunix
     elseif strcmpi(OS, 'Linux')
         OS = '';
         OSVersion = '';
-        % first check if /etc/os-release exists and read it
+        % First check if /etc/os-release exists and read it
         [status, result] = system('cat /etc/os-release');
         if (status == 0)
-            % add newline to beginning and end of output character vector (makes parsing easier)
+            % Add newline to beginning and end of output character vector (makes parsing easier)
             result = sprintf('\n%s\n', result);
-            % determine OS
-            OS = regexpi(result, '(?<=\nID=).*?(?=\n)', 'match'); % ID=... (shortest match)
-            OS = lower(strtrim(replace(OS, '"', ''))); % remove quotes, leading/trailing spaces, and make lowercase
+            % Determine OS
+            OS = regexpi(result, '(?<=\nID=).*?(?=\n)', 'match');   % ID=... (shortest match)
+            OS = lower(strtrim(replace(OS, '"', '')));              % Remove quotes, leading/trailing spaces, and make lowercase
             if ~isempty(OS)
-                % convert to character vector
+                % Convert to character vector
                 OS = OS{1};
             end
-            % determine OS version
+            % Determine OS version
             OSVersion = regexpi(result, '(?<=\nVERSION_ID=)"*\d[.\d]*"*(?=\n)', 'match'); % VERSION_ID=... (longest match)
-            OSVersion = replace(OSVersion, '"', ''); % remove quotes
+            OSVersion = replace(OSVersion, '"', '');                % Remove quotes
         else
-            % check for output from lsb_release (more standardized than /etc/lsb-release itself)
+            % Check for output from lsb_release (more standardized than /etc/lsb-release itself)
             [status, result] = system('lsb_release -a');
             if (status == 0)
-                % add newline to beginning and end of output character vector (makes parsing easier)
+                % Add newline to beginning and end of output character vector (makes parsing easier)
                 result = sprintf('\n%s\n', result);
-                % determine OS
+                % Determine OS
                 OS = regexpi(result, '(?<=\nDistributor ID:\t).*?(?=\n)', 'match'); % Distributor ID: ... (shortest match)
-                OS = lower(strtrim(OS));      % remove leading/trailing spaces, and convert to lowercase
+                OS = lower(strtrim(OS));                            % Remove leading/trailing spaces, and convert to lowercase
                 if ~isempty(OS)
-                    % convert to character vector
+                    % Convert to character vector
                     OS = OS{1};
                 end
-                % determine OS version
+                % Determine OS version
                 OSVersion = regexpi(result, '(?<=\nRelease:\t)\d[.\d]*(?=\n)', 'match'); % Release: ... (longest match)
             else
-                % extract information from /etc/*release or /etc/*version filename
-                [status, result] = system('ls -m /etc/*version');   % comma-delimited file listing
+                % Extract information from /etc/*release or /etc/*version filename
+                [status, result] = system('ls -m /etc/*version');   % Comma-delimited file listing
                 fileList = '';
                 if (status == 0)
                     fileList = result;
                 end
-                [status, result] = system('ls -m /etc/*release');	% comma-delimited file listing
+                [status, result] = system('ls -m /etc/*release');   % Comma-delimited file listing
                 if (status == 0)
                     fileList = [fileList ', ' result];
                 end
                 fileList = replace(fileList, ',', ' ');
-                % remove spaces and trailing newline
+                % Remove spaces and trailing newline
                 fileList = strtrim(fileList);
                 OSList = regexpi(fileList, '(?<=/etc/).*?(?=[-_][rv])', 'match'); % /etc/ ... -release/version or _release/version
                 fileList = strtrim(strsplit(fileList));
-                % find the first entry that's different from 'os', 'lsb', 'system', '', or 'debian'/'redhat' (unless it's the only one)
+                % Find the first entry that's different from 'os', 'lsb', 'system', '', or 'debian'/'redhat' (unless it's the only one)
                 ii = 1;
                 while (ii <= numel(OSList))
                     if ~(strcmpi(OSList{ii}, 'os') || strcmpi(OSList{ii}, 'lsb') || strcmpi(OSList{ii}, 'system') || ...
@@ -125,12 +126,12 @@ elseif isunix
                         OSFile = fileList{ii};
                         break;
                     elseif (strcmpi(OSList{ii}, 'redhat') || strcmpi(OSList{ii}, 'debian'))
-                        OS = OSList{ii};          % assign temporarily, but keep going
+                        OS = OSList{ii};                            % Assign temporarily, but keep going
                         OSFile = fileList{ii};
                     end
                     ii = ii+1;
                 end
-                % determine OS version
+                % Determine OS version
                 if ~isempty(OSFile)
                     [status, OSVersion] = system(['cat ' OSFile]);
                     if (status == 0)
@@ -158,7 +159,7 @@ else
 end
 
 if iscell(OSVersion)
-    % convert to character vector
+    % Convert to character vector
     OSVersion = OSVersion{1};
 end
 OSVersion = round(str2double(strsplit(OSVersion, '.')));

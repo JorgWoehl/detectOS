@@ -6,13 +6,15 @@
 
 ## Purpose
 
-For the development of cross-platform apps in MATLAB, it is useful to know the operating system (OS) on which MATLAB is running, e.g. to select native fonts and font sizes (see **[getOSfont](https://www.mathworks.com/matlabcentral/fileexchange/60710-getosfont)**) or to fine-tune the layout and design of graphical user interface elements. **detectOS** returns the name and version number of the underlying OS for a wide range of platforms and OS versions. 
+For the development of cross-platform apps in MATLAB, it is useful to know the operating system (OS) on which MATLAB is running. For example, this allows to select native fonts and font sizes (see **[getOSfont](https://www.mathworks.com/matlabcentral/fileexchange/60710-getosfont)**) or to fine-tune the layout and design of graphical user interface elements. **detectOS** returns the name and version number of the underlying OS for a wide range of platforms and OS versions. 
 
 ## Usage 
 
-`OS = detectOS` returns the name of the operating system as a lowercase character vector, such as `'windows'`, `'macos'` (which includes OS X), `'solaris'`, `'aix'`, `'ubuntu'`, `'centos'`, and many other Unix/Linux distributions. It is thus much more fine-grained than MATLAB's built-in `ispc` / `ismac` / `isunix` and `computer` functions. If the OS cannot be determined, an error is thrown.
+`OS = detectOS` returns the name of the operating system as a lowercase character vector, such as `'windows'`, `'macos'` (which includes OS X), `'solaris'`, `'aix'`, `'ubuntu'`, `'centos'`, and many other Unix/Linux distributions. It is thus much more fine-grained than MATLAB's built-in `ispc` / `ismac` / `isunix` and `computer` functions. 
+If the OS cannot be determined, an error is thrown.
 
-`[OS, OSVersion] = detectOS` also returns the OS version number as a numeric row vector. For example, Windows 7 SP1 (version 6.1.7601) is reported as `OS = 'windows'` and `OSVersion = [6, 1, 7601]`. If the OS version cannot be determined, a warning is issued and the empty numeric array is returned.
+`[OS, OSVersion] = detectOS` also returns the OS version number as a numeric row vector. For example, Windows 7 SP1 (version 6.1.7601) is reported as `OS = 'windows'` and `OSVersion = [6, 1, 7601]`. 
+If the OS version cannot be determined, a warning is issued and the empty numeric array is returned.
 
 For a list of Windows releases, see [https://en.wikipedia.org/wiki/Ver_(command)](https://en.wikipedia.org/wiki/Ver_(command)).
 
@@ -20,7 +22,7 @@ For a list of macOS releases, see [https://support.apple.com/en-us/HT201260](htt
 
 ## Requirements
 
-**detectOS** is compatible with MATLAB R2016b and later releases (version 1.0 iscompatible with R2013a and later releases). It was tested on the following operating systems (64-bit, unless otherwise stated) and should run on a wide variety of other Unix/Linux distributions without any modification:
+**detectOS** is compatible with MATLAB R2016b and later releases (version 1.0 is compatible with R2013a and later releases). It was tested on the following operating systems (64-bit, unless otherwise stated) and should run on a wide variety of other Unix/Linux distributions without any modification:
 
 * Windows 10 (10.0.10586)
 * Windows 8.1 Update 1 (6.3.9600)
@@ -45,4 +47,4 @@ Another great tool returning information about the CPU and operating system is *
 
 ## Feedback
 
-Please let me know if you have tested **detectOS** on other operating systems. Any feedback or suggestions for improvement are welcome!
+Please let me know if you have tested **detectOS** on other operating systems. Thank you for any feedback or suggestions for improvement!
